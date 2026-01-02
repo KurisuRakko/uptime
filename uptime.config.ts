@@ -11,8 +11,6 @@ const pageConfig: PageConfig = {
   title: 'RSSS · Rakko System Service Status',
   links: [
     { link: 'https://rakko.cn', label: 'Main Website', highlight: true },
-    { link: 'https://music.rakko.cn', label: 'Music Player' },
-    { link: 'https://static.rakko.cn', label: 'Static Site' },
     { link: 'https://github.com/KurisuRakko', label: 'GitHub' },
     { link: 'mailto:yang@rakko.cn', label: 'Contact' },
   ],
@@ -107,12 +105,12 @@ const workerConfig: WorkerConfig = {
  * ========================= */
 const maintenances: MaintenanceConfig[] = [
   {
-    monitors: ['rakko-web-main', 'rakko-music-player', 'rakko-static-site'],
+    monitors: ['rakko-web-main', 'rakko-music-player'],
     title: 'RSSS · Scheduled Maintenance',
     body: 'Rakko System infrastructure maintenance in progress',
     // 你可以把 start/end 换成你真实维护窗口
     start: '2026-01-01T00:00:00+08:00',
-    end: '2026-12-31T23:59:59+08:00',
+    end: '2026-06-31T23:59:59+08:00',
     color: 'blue',
   },
 ]
