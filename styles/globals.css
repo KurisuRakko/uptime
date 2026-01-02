@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://github.com/KurisuRakko/picx-images-hosting/raw/master/e1f3ce8ba91b02a894b59457e0c23fc4298252208.7axn7ei8s0.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}

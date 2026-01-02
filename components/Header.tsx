@@ -4,11 +4,13 @@ import { pageConfig } from '@/uptime.config'
 import { PageConfigLink } from '@/types/config'
 import { useTranslation } from 'react-i18next'
 
+import Link from 'next/link'
+
 export default function Header({ style }: { style?: React.CSSProperties }) {
   const { t } = useTranslation('common')
   const linkToElement = (link: PageConfigLink, i: number) => {
     return (
-      <a
+      <Link
         key={i}
         href={link.link}
         target={link.link.startsWith('/') ? undefined : '_blank'}
@@ -16,7 +18,7 @@ export default function Header({ style }: { style?: React.CSSProperties }) {
         data-active={link.highlight}
       >
         {link.label}
-      </a>
+      </Link>
     )
   }
 
@@ -26,17 +28,15 @@ export default function Header({ style }: { style?: React.CSSProperties }) {
     <header className={classes.header} style={style}>
       <Container size="md" className={classes.inner}>
         <div>
-          <a
-            href="/"
-          >
+          <Link href="/">
             <Image
-              src={pageConfig.logo ?? '/logo.svg'}
+              src={pageConfig.logo ?? '/logo.png'}
               h={56}
               w={{ base: 140, sm: 190 }}
               fit="contain"
               alt="logo"
             />
-          </a>
+          </Link>
         </div>
 
         <Group gap={5} visibleFrom="sm">
