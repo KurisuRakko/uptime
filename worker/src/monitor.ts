@@ -23,8 +23,7 @@ async function httpResponseBasicCheck(
     // MUST contain responseKeyword
     if (monitor.responseKeyword && !responseBody.includes(monitor.responseKeyword)) {
       console.log(
-        `${monitor.name} expected keyword ${
-          monitor.responseKeyword
+        `${monitor.name} expected keyword ${monitor.responseKeyword
         }, not found in response (truncated to 100 chars): ${responseBody.slice(0, 100)}`
       )
       return "HTTP response doesn't contain the configured keyword"
@@ -36,8 +35,7 @@ async function httpResponseBasicCheck(
       responseBody.includes(monitor.responseForbiddenKeyword)
     ) {
       console.log(
-        `${monitor.name} forbidden keyword ${
-          monitor.responseForbiddenKeyword
+        `${monitor.name} forbidden keyword ${monitor.responseForbiddenKeyword
         }, found in response (truncated to 100 chars): ${responseBody.slice(0, 100)}`
       )
       return 'HTTP response contains the configured forbidden keyword'
@@ -72,10 +70,10 @@ export async function getStatusWithGlobalPing(
         locations:
           gpUrl.searchParams.get('magic') !== null
             ? [
-                {
-                  magic: gpUrl.searchParams.get('magic'),
-                },
-              ]
+              {
+                magic: gpUrl.searchParams.get('magic'),
+              },
+            ]
             : undefined,
         measurementOptions: {
           port: targetUrl.port,
@@ -98,10 +96,10 @@ export async function getStatusWithGlobalPing(
         locations:
           gpUrl.searchParams.get('magic') !== null
             ? [
-                {
-                  magic: gpUrl.searchParams.get('magic'),
-                },
-              ]
+              {
+                magic: gpUrl.searchParams.get('magic'),
+              },
+            ]
             : undefined,
         measurementOptions: {
           request: {
@@ -142,8 +140,7 @@ export async function getStatusWithGlobalPing(
 
     const measurementId = measurementResponse.id
     console.log(
-      `Measurement created successfully, id: ${measurementId}, time elapsed: ${
-        Date.now() - startTime
+      `Measurement created successfully, id: ${measurementId}, time elapsed: ${Date.now() - startTime
       }ms`
     )
 
@@ -179,8 +176,7 @@ export async function getStatusWithGlobalPing(
         `measurement failed with status: ${measurementResult.status}, result status: ${measurementResult.results[0].result.status}`
       )
       // Truncate raw output to avoid huge error messages
-      throw `status [${measurementResult.status}|${
-        measurementResult.results[0].result.status
+      throw `status [${measurementResult.status}|${measurementResult.results[0].result.status
       }]: ${measurementResult.results?.[0].result?.rawOutput?.slice(0, 64)}`
     }
 
@@ -282,7 +278,7 @@ export async function getStatus(
     try {
       let headers = new Headers(monitor.headers as any)
       if (!headers.has('user-agent')) {
-        headers.set('user-agent', 'UptimeFlare/1.0 (+https://github.com/lyc8503/UptimeFlare)')
+        headers.set('user-agent', 'RSSS/1.0 (Rakko System Service Status; +https://github.com/KurisuRakko/uptime)')
       }
 
       const response = await fetchTimeout(monitor.target, monitor.timeout || 10000, {
@@ -304,7 +300,7 @@ export async function getStatus(
         response.status,
         response.text.bind(response)
       )
-      try { await response.body?.cancel() } catch(e) {} // Always try to cancel body, see issue #166
+      try { await response.body?.cancel() } catch (e) { } // Always try to cancel body, see issue #166
 
       if (err !== null) {
         console.log(`${monitor.name} didn't pass response check: ${err}`)
