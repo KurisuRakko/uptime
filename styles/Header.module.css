@@ -1,8 +1,14 @@
 .header {
   height: rem(56px);
   margin-bottom: rem(100px);
-  background-color: var(--mantine-color-body);
-  border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: rem(1px) solid light-dark(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+}
+
+[data-mantine-color-scheme="dark"] .header {
+  background-color: rgba(36, 36, 36, 0.4);
 }
 
 .inner {

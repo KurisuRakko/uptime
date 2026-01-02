@@ -1,5 +1,5 @@
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { Center, Container, Title, Collapse, Button, Box } from '@mantine/core'
+import { Center, Container, Title, Collapse, Button, Box, Card } from '@mantine/core'
 import { IconCircleCheck, IconAlertCircle, IconPlus, IconMinus } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import MaintenanceAlert from './MaintenanceAlert'
@@ -87,51 +87,53 @@ export default function OverallStatus({
 
   return (
     <Container size="md" mt="xl">
-      <Center>{icon}</Center>
-      <Title mt="sm" style={{ textAlign: 'center' }} order={1}>
-        {statusString}
-      </Title>
-      <Title mt="sm" style={{ textAlign: 'center', color: '#70778c' }} order={5}>
-        {t('Last updated on', {
-          date: new Date(state.lastUpdate * 1000).toLocaleString(),
-          seconds: currentTime - state.lastUpdate,
-        })}
-      </Title>
+      <Card className="glass" padding="lg" radius="md">
+        <Center>{icon}</Center>
+        <Title mt="sm" style={{ textAlign: 'center' }} order={1}>
+          {statusString}
+        </Title>
+        <Title mt="sm" style={{ textAlign: 'center', color: '#70778c' }} order={5}>
+          {t('Last updated on', {
+            date: new Date(state.lastUpdate * 1000).toLocaleString(),
+            seconds: currentTime - state.lastUpdate,
+          })}
+        </Title>
 
-      {/* Upcoming Maintenance */}
-      {upcomingMaintenances.length > 0 && (
-        <>
-          <Title mt="4px" style={{ textAlign: 'center', color: '#70778c' }} order={5}>
-            {t('upcoming maintenance', { count: upcomingMaintenances.length })}{' '}
-            <span
-              style={{ textDecoration: 'underline', cursor: 'pointer' }}
-              onClick={() => setExpandUpcoming(!expandUpcoming)}
-            >
-              {expandUpcoming ? t('Hide') : t('Show')}
-            </span>
-          </Title>
+        {/* Upcoming Maintenance */}
+        {upcomingMaintenances.length > 0 && (
+          <>
+            <Title mt="4px" style={{ textAlign: 'center', color: '#70778c' }} order={5}>
+              {t('upcoming maintenance', { count: upcomingMaintenances.length })}{' '}
+              <span
+                style={{ textDecoration: 'underline', cursor: 'pointer' }}
+                onClick={() => setExpandUpcoming(!expandUpcoming)}
+              >
+                {expandUpcoming ? t('Hide') : t('Show')}
+              </span>
+            </Title>
 
-          <Collapse in={expandUpcoming}>
-            {upcomingMaintenances.map((maintenance, idx) => (
-              <MaintenanceAlert
-                key={`upcoming-${idx}`}
-                maintenance={maintenance}
-                style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-                upcoming
-              />
-            ))}
-          </Collapse>
-        </>
-      )}
+            <Collapse in={expandUpcoming}>
+              {upcomingMaintenances.map((maintenance, idx) => (
+                <MaintenanceAlert
+                  key={`upcoming-${idx}`}
+                  maintenance={maintenance}
+                  style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+                  upcoming
+                />
+              ))}
+            </Collapse>
+          </>
+        )}
 
-      {/* Active Maintenance */}
-      {activeMaintenances.map((maintenance, idx) => (
-        <MaintenanceAlert
-          key={`active-${idx}`}
-          maintenance={maintenance}
-          style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
-        />
-      ))}
+        {/* Active Maintenance */}
+        {activeMaintenances.map((maintenance, idx) => (
+          <MaintenanceAlert
+            key={`active-${idx}`}
+            maintenance={maintenance}
+            style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
+          />
+        ))}
+      </Card>
     </Container>
   )
 }

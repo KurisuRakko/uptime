@@ -123,6 +123,7 @@ export default function MonitorList({
         ml="md"
         mr="md"
         mt="xl"
+        className="glass"
         withBorder={!groupedMonitor}
         style={{ width: groupedMonitor ? '897px' : '865px' }}
       >
