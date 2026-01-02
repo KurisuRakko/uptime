@@ -117,7 +117,6 @@ export default function OverallStatus({
                 <MaintenanceAlert
                   key={`upcoming-${idx}`}
                   maintenance={maintenance}
-                  style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
                   upcoming
                 />
               ))}
@@ -130,7 +129,6 @@ export default function OverallStatus({
           <MaintenanceAlert
             key={`active-${idx}`}
             maintenance={maintenance}
-            style={{ maxWidth: groupedMonitor ? '897px' : '865px' }}
           />
         ))}
       </Card>

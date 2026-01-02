@@ -1,5 +1,5 @@
 import { MonitorState, MonitorTarget } from '@/types/config'
-import { Accordion, Card, Center, Text } from '@mantine/core'
+import { Accordion, Card, Center, Text, Container } from '@mantine/core'
 import MonitorDetail from './MonitorDetail'
 import { pageConfig } from '@/uptime.config'
 import { useEffect, useState } from 'react'
@@ -115,20 +115,16 @@ export default function MonitorList({
   }
 
   return (
-    <Center>
+    <Container size="md" mt="xl">
       <Card
         shadow="sm"
         padding="lg"
         radius="md"
-        ml="md"
-        mr="md"
-        mt="xl"
         className="glass"
         withBorder={!groupedMonitor}
-        style={{ width: groupedMonitor ? '897px' : '865px' }}
       >
         {content}
       </Card>
-    </Center>
+    </Container>
   )
 }

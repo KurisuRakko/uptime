@@ -10,13 +10,14 @@ body {
 }
 
 .glass {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background-color: rgba(255, 255, 255, 0.4) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 [data-mantine-color-scheme="dark"] .glass {
-    background-color: rgba(36, 36, 36, 0.4) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background-color: rgba(36, 36, 36, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
