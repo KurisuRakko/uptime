@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Script from 'next/script'
 
 import { MonitorState, MonitorTarget } from '@/types/config'
 import { KVNamespace } from '@cloudflare/workers-types'
@@ -61,6 +62,10 @@ export default function Home({
         <title>{pageConfig.title}</title>
         <link rel="icon" href={pageConfig.favicon ?? '/favicon.png'} />
       </Head>
+      <Script
+        src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0/dist/autoload.js"
+        strategy="afterInteractive"
+      />
 
       <motion.main className={styles.page} variants={pageVariants} initial="hidden" animate="show">
         <motion.div variants={sectionVariants}>
