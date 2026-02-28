@@ -11,7 +11,7 @@ export default function Footer() {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       >
         <Card className="glass footer-card" padding="sm" radius="md">
           <div dangerouslySetInnerHTML={{ __html: pageConfig.customFooter ?? defaultFooter }} />

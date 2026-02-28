@@ -97,7 +97,7 @@ export default function OverallStatus({
       <motion.div
         initial={{ opacity: 0, y: 16, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <Card className="glass status-card" padding="lg" radius="md">
           <div className={styles.wrapper}>
