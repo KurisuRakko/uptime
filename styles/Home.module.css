@@ -1,0 +1,28 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heroWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 48rem) {
+  .page {
+    gap: 16px;
+  }
+
+  .heroWrap {
+    gap: 12px;
+  }
+}

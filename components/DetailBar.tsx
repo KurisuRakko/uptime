@@ -103,12 +103,19 @@ export default function DetailBar({
       >
         <div
           style={{
-            height: '20px',
-            width: '7px',
+            height: '14px',
+            width: '5px',
             background: getColor(dayPercent, false),
             borderRadius: '2px',
             marginLeft: '1px',
             marginRight: '1px',
+            transition: 'transform 150ms ease',
+          }}
+          onMouseEnter={(event) => {
+            event.currentTarget.style.transform = 'translateY(-2px)'
+          }}
+          onMouseLeave={(event) => {
+            event.currentTarget.style.transform = 'translateY(0)'
           }}
           onClick={() => {
             if (dayDownTime > 0) {

@@ -1,18 +1,20 @@
 .header {
-  height: rem(56px);
-  margin-bottom: rem(100px);
-  background-color: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: rem(1px) solid light-dark(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  height: rem(64px);
+  margin-bottom: rem(24px);
+  background-color: #ffffff;
+  border-bottom: rem(1px) solid #d0d7de;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 [data-mantine-color-scheme="dark"] .header {
-  background-color: rgba(36, 36, 36, 0.4);
+  background-color: #0d1117;
+  border-bottom: rem(1px) solid #30363d;
 }
 
 .inner {
-  height: rem(56px);
+  height: rem(64px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,19 +23,31 @@
 .link {
   display: block;
   line-height: 1;
-  padding: rem(8px) rem(12px);
-  border-radius: var(--mantine-radius-sm);
+  padding: rem(8px) rem(14px);
+  border-radius: rem(6px);
   text-decoration: none;
-  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
-  font-size: var(--mantine-font-size-sm);
+  color: light-dark(#24292f, #c9d1d9);
+  font-size: 14px;
   font-weight: 500;
+  transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
 
   @mixin hover {
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    background-color: light-dark(rgba(27, 31, 36, 0.06), rgba(110, 118, 129, 0.2));
   }
 
   [data-mantine-color-scheme] &[data-active] {
-    background-color: var(--mantine-color-blue-filled);
-    color: var(--mantine-color-white);
+    background-color: #2da44e;
+    color: #ffffff;
+  }
+}
+
+@media (max-width: 48rem) {
+  .header {
+    height: rem(56px);
+    margin-bottom: rem(16px);
+  }
+
+  .inner {
+    height: rem(56px);
   }
 }

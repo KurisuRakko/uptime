@@ -1,23 +1,149 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f6f8fa;
+    --panel: #ffffff;
+    --panel-border: #d0d7de;
+    --panel-shadow: 0 1px 0 rgba(31, 35, 40, 0.04), 0 4px 12px rgba(31, 35, 40, 0.08);
+    --text-0: #24292f;
+    --text-1: #57606a;
+    --accent: #0969da;
+    --success: #2da44e;
+    --warning: #bf8700;
+    --danger: #cf222e;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-image: url('https://github.com/KurisuRakko/picx-images-hosting/raw/master/e1f3ce8ba91b02a894b59457e0c23fc4298252208.7axn7ei8s0.webp');
-    background-size: cover;
-    background-position: center;
+    min-height: 100vh;
+    color: var(--text-0);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
     background-attachment: fixed;
     background-repeat: no-repeat;
-    min-height: 100vh;
 }
 
 .glass {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background-color: rgba(255, 255, 255, 0.75) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background: var(--panel) !important;
+    border: 1px solid var(--panel-border) !important;
+    box-shadow: var(--panel-shadow);
 }
 
 [data-mantine-color-scheme="dark"] .glass {
-    background-color: rgba(36, 36, 36, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: #0d1117 !important;
+    border: 1px solid #30363d !important;
+}
+
+[data-mantine-color-scheme="dark"] body {
+    color: #c9d1d9;
+    background-color: #0d1117;
+}
+
+main {
+    padding: 0 16px 72px;
+}
+
+.status-card {
+    border-radius: 10px !important;
+    padding: 20px !important;
+}
+
+.monitor-card {
+    border-radius: 10px !important;
+    padding: 16px !important;
+}
+
+.footer-card {
+    border-radius: 8px !important;
+}
+
+.status-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.status-banner.is-ok {
+    background: var(--success);
+}
+
+.status-banner.is-warn {
+    background: var(--warning);
+}
+
+.status-banner.is-bad {
+    background: var(--danger);
+}
+
+.status-banner.is-neutral {
+    background: #6e7781;
+}
+
+.status-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: var(--text-1);
+    font-size: 14px;
+}
+
+.status-meta a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.status-meta a:hover {
+    text-decoration: underline;
+}
+
+.status-pulse {
+    animation: statusPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .status-pulse {
+        animation: none;
+    }
+}
+
+@media (max-width: 48rem) {
+    main {
+        padding: 0 14px 56px;
+    }
+
+    .status-card {
+        padding: 16px !important;
+    }
+
+    .monitor-card {
+        padding: 14px !important;
+    }
 }

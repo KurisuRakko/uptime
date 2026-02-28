@@ -1,6 +1,5 @@
 import Head from 'next/head'
 
-import { Inter } from 'next/font/google'
 import { MonitorState, MonitorTarget } from '@/types/config'
 import { KVNamespace } from '@cloudflare/workers-types'
 import { maintenances, pageConfig, workerConfig } from '@/uptime.config'
@@ -11,9 +10,10 @@ import { Center, Text } from '@mantine/core'
 import MonitorDetail from '@/components/MonitorDetail'
 import Footer from '@/components/Footer'
 import { useTranslation } from 'react-i18next'
+import styles from '@/styles/Home.module.css'
+import { motion } from 'framer-motion'
 
 export const runtime = 'experimental-edge'
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({
   state: stateStr,
@@ -25,6 +25,17 @@ export default function Home({
   statusPageLink?: string
 }) {
   const { t } = useTranslation('common')
+  const pageVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.05 },
+    },
+  }
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  }
   let state
   if (stateStr !== undefined) {
     state = JSON.parse(stateStr) as MonitorState
@@ -51,24 +62,28 @@ export default function Home({
         <link rel="icon" href={pageConfig.favicon ?? '/favicon.png'} />
       </Head>
 
-      <main className={inter.className}>
-        <Header />
+      <motion.main className={styles.page} variants={pageVariants} initial="hidden" animate="show">
+        <motion.div variants={sectionVariants}>
+          <Header />
+        </motion.div>
 
         {state == undefined ? (
-          <Center>
-            <Text fw={700}>
-              {t('Monitor State not defined')}
-            </Text>
-          </Center>
+          <motion.div variants={sectionVariants}>
+            <Center>
+              <Text fw={700}>{t('Monitor State not defined')}</Text>
+            </Center>
+          </motion.div>
         ) : (
-          <div>
+          <motion.div className={styles.sectionWrap} variants={sectionVariants}>
             <OverallStatus state={state} monitors={monitors} maintenances={maintenances} />
             <MonitorList monitors={monitors} state={state} />
-          </div>
+          </motion.div>
         )}
 
-        <Footer />
-      </main>
+        <motion.div variants={sectionVariants}>
+          <Footer />
+        </motion.div>
+      </motion.main>
     </>
   )
 }
@@ -83,16 +98,22 @@ export async function getServerSideProps() {
 
   // Only present these values to client
   const monitors = workerConfig.monitors.map((monitor) => {
-    return {
+    const base = {
       id: monitor.id,
       name: monitor.name,
       // @ts-ignore
-      tooltip: monitor?.tooltip,
+      tooltip: monitor?.tooltip ?? null,
       // @ts-ignore
-      statusPageLink: monitor?.statusPageLink,
-      // @ts-ignore
-      hideLatencyChart: monitor?.hideLatencyChart,
+      statusPageLink: monitor?.statusPageLink ?? null,
     }
+    // @ts-ignore
+    return monitor?.hideLatencyChart === undefined
+      ? base
+      : {
+          ...base,
+          // @ts-ignore
+          hideLatencyChart: monitor.hideLatencyChart,
+        }
   })
 
   return { props: { state, monitors } }

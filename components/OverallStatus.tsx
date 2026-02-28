@@ -1,10 +1,13 @@
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { Center, Container, Title, Collapse, Button, Box, Card } from '@mantine/core'
-import { IconCircleCheck, IconAlertCircle, IconPlus, IconMinus } from '@tabler/icons-react'
+import { Container, Collapse, Card, Text } from '@mantine/core'
+import { IconCircleCheck, IconAlertCircle } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import MaintenanceAlert from './MaintenanceAlert'
 import { pageConfig } from '@/uptime.config'
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import styles from '@/styles/OverallStatus.module.css'
 
 function useWindowVisibility() {
   const [isVisible, setIsVisible] = useState(true)
@@ -26,24 +29,28 @@ export default function OverallStatus({
   monitors: MonitorTarget[]
 }) {
   const { t } = useTranslation('common')
-  let group = pageConfig.group
-  let groupedMonitor = (group && Object.keys(group).length > 0) || false
 
   let statusString = ''
-  let icon = <IconAlertCircle style={{ width: 64, height: 64, color: '#b91c1c' }} />
+  let statusVariant: 'ok' | 'warn' | 'bad' | 'neutral' = 'neutral'
+  let icon = <IconAlertCircle style={{ width: 18, height: 18, color: 'inherit' }} />
   if (state.overallUp === 0 && state.overallDown === 0) {
     statusString = t('No data yet')
+    statusVariant = 'neutral'
   } else if (state.overallUp === 0) {
     statusString = t('All systems not operational')
+    statusVariant = 'bad'
   } else if (state.overallDown === 0) {
     statusString = t('All systems operational')
-    icon = <IconCircleCheck style={{ width: 64, height: 64, color: '#059669' }} />
+    statusVariant = 'ok'
+    icon = <IconCircleCheck style={{ width: 18, height: 18, color: 'inherit' }} />
   } else {
     statusString = t('Some systems not operational', {
       down: state.overallDown,
       total: state.overallUp + state.overallDown,
     })
+    statusVariant = 'warn'
   }
+  const pulseClass = state.overallDown > 0 ? 'status-pulse' : undefined
 
   const [openTime] = useState(Math.round(Date.now() / 1000))
   const [currentTime, setCurrentTime] = useState(Math.round(Date.now() / 1000))
@@ -87,51 +94,72 @@ export default function OverallStatus({
 
   return (
     <Container size="md" mt="xl">
-      <Card className="glass" padding="lg" radius="md">
-        <Center>{icon}</Center>
-        <Title mt="sm" style={{ textAlign: 'center' }} order={1}>
-          {statusString}
-        </Title>
-        <Title mt="sm" style={{ textAlign: 'center', color: '#70778c' }} order={5}>
-          {t('Last updated on', {
-            date: new Date(state.lastUpdate * 1000).toLocaleString(),
-            seconds: currentTime - state.lastUpdate,
-          })}
-        </Title>
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        <Card className="glass status-card" padding="lg" radius="md">
+          <div className={styles.wrapper}>
+            <div className={`status-banner is-${statusVariant}`}>
+              <span className={pulseClass}>{icon}</span>
+              {statusString}
+            </div>
 
-        {/* Upcoming Maintenance */}
-        {upcomingMaintenances.length > 0 && (
-          <>
-            <Title mt="4px" style={{ textAlign: 'center', color: '#70778c' }} order={5}>
-              {t('upcoming maintenance', { count: upcomingMaintenances.length })}{' '}
-              <span
-                style={{ textDecoration: 'underline', cursor: 'pointer' }}
-                onClick={() => setExpandUpcoming(!expandUpcoming)}
-              >
-                {expandUpcoming ? t('Hide') : t('Show')}
-              </span>
-            </Title>
+            <div className={styles.titleRow}>
+              <div className={styles.currentStatus}>
+                {t('Current Status')}: {pageConfig.title}
+              </div>
+              <div className="status-meta">
+                <span>{t('Uptime over the past 90 days')}.</span>
+                <Link className={styles.statusLink} href="/incidents">
+                  {t('View historical uptime')}
+                </Link>
+              </div>
+            </div>
 
-            <Collapse in={expandUpcoming}>
-              {upcomingMaintenances.map((maintenance, idx) => (
-                <MaintenanceAlert
-                  key={`upcoming-${idx}`}
-                  maintenance={maintenance}
-                  upcoming
-                />
-              ))}
-            </Collapse>
-          </>
-        )}
+            <div className={styles.timeRow}>
+              {t('Last updated on', {
+                date: new Date(state.lastUpdate * 1000).toLocaleString(),
+                seconds: currentTime - state.lastUpdate,
+              })}
+            </div>
 
-        {/* Active Maintenance */}
-        {activeMaintenances.map((maintenance, idx) => (
-          <MaintenanceAlert
-            key={`active-${idx}`}
-            maintenance={maintenance}
-          />
-        ))}
-      </Card>
+            {/* Upcoming Maintenance */}
+            {upcomingMaintenances.length > 0 && (
+              <>
+                <Text mt="4px" className={styles.subtitle}>
+                  {t('upcoming maintenance', { count: upcomingMaintenances.length })}{' '}
+                  <span
+                    className={styles.maintenanceToggle}
+                    onClick={() => setExpandUpcoming(!expandUpcoming)}
+                  >
+                    {expandUpcoming ? t('Hide') : t('Show')}
+                  </span>
+                </Text>
+
+                <Collapse in={expandUpcoming}>
+                  {upcomingMaintenances.map((maintenance, idx) => (
+                    <MaintenanceAlert
+                      key={`upcoming-${idx}`}
+                      maintenance={maintenance}
+                      upcoming
+                    />
+                  ))}
+                </Collapse>
+              </>
+            )}
+
+            {/* Active Maintenance */}
+            {activeMaintenances.map((maintenance, idx) => (
+              <MaintenanceAlert
+                key={`active-${idx}`}
+                maintenance={maintenance}
+              />
+            ))}
+          </div>
+        </Card>
+      </motion.div>
     </Container>
   )
 }

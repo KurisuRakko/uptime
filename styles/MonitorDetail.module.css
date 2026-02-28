@@ -1,0 +1,74 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.name a:hover {
+  text-decoration: underline;
+}
+
+.uptime {
+  font-weight: 700;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  margin-top: 4px;
+}
+
+.badgeOk {
+  background: #dafbe1;
+  color: #1a7f37;
+  border-color: #b4f1c8;
+}
+
+.badgeWarn {
+  background: #fff8c5;
+  color: #9a6700;
+  border-color: #f2cc60;
+}
+
+.badgeBad {
+  background: #ffebe9;
+  color: #cf222e;
+  border-color: #ffc1c1;
+}
+
+.badgeMaintenance {
+  background: #ddf4ff;
+  color: #0969da;
+  border-color: #b6e3ff;
+}
+
+@media (max-width: 48rem) {
+  .header {
+    gap: 8px;
+  }
+}

@@ -66,6 +66,51 @@ const workerConfig: WorkerConfig = {
       },
     },
 
+    /* ---------- kurisu.rakko.cn (Server) ---------- */
+    {
+      id: 'rakko-kurisu-server',
+      name: 'Kurisu Server',
+      method: 'GET',
+      target: 'https://kurisu.rakko.cn',
+      tooltip: 'Kurisu server status',
+      statusPageLink: 'https://kurisu.rakko.cn',
+      expectedCodes: [200, 301, 302],
+      timeout: 5000,
+      headers: {
+        'User-Agent': 'RSSS/1.0 (Rakko System Service Status)',
+      },
+    },
+
+    /* ---------- connect.chuuya.cn (Connect) ---------- */
+    {
+      id: 'rakko-connect-15',
+      name: 'KurisuRakko-Connect15',
+      method: 'GET',
+      target: 'https://connect.chuuya.cn',
+      tooltip: 'KurisuRakko connect service',
+      statusPageLink: 'https://connect.chuuya.cn',
+      expectedCodes: [200, 301, 302],
+      timeout: 5000,
+      headers: {
+        'User-Agent': 'RSSS/1.0 (Rakko System Service Status)',
+      },
+    },
+
+    /* ---------- yukinoshita.net (Landing) ---------- */
+    {
+      id: 'rakko-yukinoshita-landing',
+      name: 'KurisuRakko 起始页',
+      method: 'GET',
+      target: 'https://yukinoshita.net',
+      tooltip: 'KurisuRakko landing page',
+      statusPageLink: 'https://yukinoshita.net',
+      expectedCodes: [200, 301, 302],
+      timeout: 5000,
+      headers: {
+        'User-Agent': 'RSSS/1.0 (Rakko System Service Status)',
+      },
+    },
+
     /* ---------- (Optional) TCP: Server SSH ---------- */
     // 如果你有自己的服务器，把 YOUR_SERVER_IP 换成真实 IP 即可启用
     // {

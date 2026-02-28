@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.currentStatus {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-0);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-1);
+}
+
+.statusLink {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.statusLink:hover {
+  text-decoration: underline;
+}
+
+.timeRow {
+  font-size: 13px;
+  color: var(--text-1);
+}
+
+.maintenanceToggle {
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+@media (max-width: 48rem) {
+  .currentStatus {
+    font-size: 16px;
+  }
+}

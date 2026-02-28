@@ -1,5 +1,6 @@
 import { Card, Container } from '@mantine/core'
 import { pageConfig } from '@/uptime.config'
+import { motion } from 'framer-motion'
 
 export default function Footer() {
   const defaultFooter =
@@ -7,9 +8,15 @@ export default function Footer() {
 
   return (
     <Container size="md" mt="lg" mb="xl">
-      <Card className="glass" padding="sm" radius="md">
-        <div dangerouslySetInnerHTML={{ __html: pageConfig.customFooter ?? defaultFooter }} />
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+      >
+        <Card className="glass footer-card" padding="sm" radius="md">
+          <div dangerouslySetInnerHTML={{ __html: pageConfig.customFooter ?? defaultFooter }} />
+        </Card>
+      </motion.div>
     </Container>
   )
 }
