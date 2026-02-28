@@ -129,9 +129,6 @@ export default function OverallStatus({
             </div>
 
             <div className={styles.titleRow}>
-              <div className={styles.currentStatus}>
-                {t('Current Status')}: {pageConfig.title}
-              </div>
               <div className="status-meta">
                 <span>{t('Uptime over the past 30 days')}.</span>
                 <Link className={styles.statusLink} href="/incidents">
