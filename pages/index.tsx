@@ -13,6 +13,7 @@ import Footer from '@/components/Footer'
 import { useTranslation } from 'react-i18next'
 import styles from '@/styles/Home.module.css'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 export const runtime = 'experimental-edge'
 
@@ -26,6 +27,18 @@ export default function Home({
   statusPageLink?: string
 }) {
   const { t } = useTranslation('common')
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 768px)')
+    const update = () => setIsDesktop(query.matches)
+    update()
+    if (query.addEventListener) {
+      query.addEventListener('change', update)
+      return () => query.removeEventListener('change', update)
+    }
+    query.addListener(update)
+    return () => query.removeListener(update)
+  }, [])
   const pageVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -62,10 +75,12 @@ export default function Home({
         <title>{pageConfig.title}</title>
         <link rel="icon" href={pageConfig.favicon ?? '/favicon.png'} />
       </Head>
-      <Script
-        src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0/dist/autoload.js"
-        strategy="afterInteractive"
-      />
+      {isDesktop && (
+        <Script
+          src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0/dist/autoload.js"
+          strategy="afterInteractive"
+        />
+      )}
 
       <motion.main className={styles.page} variants={pageVariants} initial="hidden" animate="show">
         <motion.div variants={sectionVariants}>

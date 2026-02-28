@@ -1,19 +1,30 @@
-import { Text, Tooltip } from '@mantine/core'
+import { Text, Tooltip, ActionIcon } from '@mantine/core'
 import { MonitorState, MonitorTarget } from '@/types/config'
-import { IconAlertCircle, IconAlertTriangle, IconCircleCheck } from '@tabler/icons-react'
+import {
+  IconAlertCircle,
+  IconAlertTriangle,
+  IconCircleCheck,
+  IconStar,
+  IconStarFilled,
+} from '@tabler/icons-react'
 import DetailChart from './DetailChart'
 import DetailBar from './DetailBar'
 import { getColor } from '@/util/color'
 import { maintenances } from '@/uptime.config'
 import { useTranslation } from 'react-i18next'
 import styles from '@/styles/MonitorDetail.module.css'
+import Link from 'next/link'
 
 export default function MonitorDetail({
   monitor,
   state,
+  isFavorite = false,
+  onToggleFavorite,
 }: {
   monitor: MonitorTarget
   state: MonitorState
+  isFavorite?: boolean
+  onToggleFavorite?: (id: string) => void
 }) {
   const { t } = useTranslation('common')
 
@@ -92,6 +103,20 @@ export default function MonitorDetail({
         <>
           <span className={pulseClass}>{statusIcon}</span> {monitor.name}
         </>
+      )}
+      <Link href={`/monitor/${monitor.id}`} className={styles.detailLink}>
+        {t('Details')}
+      </Link>
+      {onToggleFavorite && (
+        <ActionIcon
+          size="sm"
+          variant="subtle"
+          color={isFavorite ? 'yellow' : 'gray'}
+          onClick={() => onToggleFavorite(monitor.id)}
+          aria-label={t('Toggle favorite')}
+        >
+          {isFavorite ? <IconStarFilled size={16} /> : <IconStar size={16} />}
+        </ActionIcon>
       )}
     </Text>
   )

@@ -38,6 +38,7 @@ body {
     border: 1px solid var(--panel-border) !important;
     box-shadow: var(--panel-shadow);
     color: var(--text-0);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 [data-mantine-color-scheme="dark"] .glass {
@@ -45,6 +46,12 @@ body {
     -webkit-backdrop-filter: blur(10px);
     background: rgba(13, 17, 23, 0.86) !important;
     border: 1px solid #30363d !important;
+}
+
+.glass:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(31, 35, 40, 0.12);
+    border-color: rgba(9, 105, 218, 0.25) !important;
 }
 
 [data-mantine-color-scheme="dark"] body {
@@ -86,6 +93,12 @@ main {
     font-weight: 600;
     font-size: 14px;
     line-height: 1.2;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.status-banner:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 .status-banner.is-ok {
@@ -145,6 +158,11 @@ main {
 @media (prefers-reduced-motion: reduce) {
     .status-pulse {
         animation: none;
+    }
+
+    .glass,
+    .status-banner {
+        transition: none;
     }
 }
 

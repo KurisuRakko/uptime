@@ -92,6 +92,28 @@ export default function OverallStatus({
       ),
     }))
 
+  const calcSla = (days: number) => {
+    const nowSeconds = Math.floor(Date.now() / 1000)
+    const windowStart = nowSeconds - days * 86400
+    const totalWindow = (nowSeconds - windowStart) * monitors.length
+    if (totalWindow <= 0) return 100
+    let downSeconds = 0
+    for (const monitor of monitors) {
+      const incidents = state.incident[monitor.id] || []
+      for (const incident of incidents) {
+        const incStart = incident.start[0]
+        const incEnd = incident.end ?? nowSeconds
+        const overlap = Math.max(0, Math.min(incEnd, nowSeconds) - Math.max(incStart, windowStart))
+        downSeconds += overlap
+      }
+    }
+    const uptime = ((totalWindow - downSeconds) / totalWindow) * 100
+    return Math.max(0, Math.min(100, uptime))
+  }
+
+  const sla30 = calcSla(30).toFixed(2)
+  const sla90 = calcSla(90).toFixed(2)
+
   return (
     <Container size="md" mt="xl">
       <motion.div
@@ -123,6 +145,17 @@ export default function OverallStatus({
                 date: new Date(state.lastUpdate * 1000).toLocaleString(),
                 seconds: currentTime - state.lastUpdate,
               })}
+            </div>
+
+            <div className={styles.slaGrid}>
+              <div className={styles.slaCard}>
+                <div className={styles.slaLabel}>{t('SLA (30d)')}</div>
+                <div className={styles.slaValue}>{sla30}%</div>
+              </div>
+              <div className={styles.slaCard}>
+                <div className={styles.slaLabel}>{t('SLA (90d)')}</div>
+                <div className={styles.slaValue}>{sla90}%</div>
+              </div>
             </div>
 
             {/* Upcoming Maintenance */}

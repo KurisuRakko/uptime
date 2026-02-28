@@ -35,11 +35,18 @@
 .item {
   padding-top: 12px;
   border-top: 1px solid var(--panel-border);
+  transition: background-color 160ms ease, transform 160ms ease;
+  border-radius: 8px;
 }
 
 .item:first-child {
   padding-top: 0;
   border-top: 0;
+}
+
+.item:hover {
+  background-color: rgba(9, 105, 218, 0.06);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 48rem) {

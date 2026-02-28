@@ -42,6 +42,7 @@ export default function MonitorList({
   const { t } = useTranslation('common')
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<'all' | 'issues' | 'maintenance'>('all')
+  const [favorites, setFavorites] = useState<Set<string>>(new Set())
   const listVariants = {
     hidden: {},
     show: {
@@ -101,6 +102,30 @@ export default function MonitorList({
     { up: 0, down: 0, maintenance: 0 }
   )
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('favoriteMonitors')
+      if (saved) {
+        setFavorites(new Set(JSON.parse(saved)))
+      }
+    } catch {
+      setFavorites(new Set())
+    }
+  }, [])
+
+  const toggleFavorite = (id: string) => {
+    setFavorites((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      localStorage.setItem('favoriteMonitors', JSON.stringify(Array.from(next)))
+      return next
+    })
+  }
+
   // Load expanded groups from localStorage
   const savedExpandedGroups = localStorage.getItem('expandedGroups')
   const expandedInitial = savedExpandedGroups
@@ -135,6 +160,10 @@ export default function MonitorList({
               return null
             }
 
+            const favoriteGroup = groupMonitors.filter((monitor) => favorites.has(monitor.id))
+            const normalGroup = groupMonitors.filter((monitor) => !favorites.has(monitor.id))
+            const orderedGroup = [...favoriteGroup, ...normalGroup]
+
             return (
               <Accordion.Item key={groupName} value={groupName}>
                 <Accordion.Control>
@@ -162,14 +191,19 @@ export default function MonitorList({
                 </Accordion.Control>
                 <Accordion.Panel>
                   <motion.div variants={listVariants} initial="hidden" animate="show">
-                    {groupMonitors.map((monitor) => (
+                  {orderedGroup.map((monitor) => (
                     <motion.div key={monitor.id} variants={itemVariants} layout className={styles.item}>
                       <Card.Section ml="xs" mr="xs">
-                        <MonitorDetail monitor={monitor} state={state} />
+                        <MonitorDetail
+                          monitor={monitor}
+                          state={state}
+                          isFavorite={favorites.has(monitor.id)}
+                          onToggleFavorite={toggleFavorite}
+                        />
                       </Card.Section>
                     </motion.div>
-                    ))}
-                  </motion.div>
+                  ))}
+                </motion.div>
                 </Accordion.Panel>
               </Accordion.Item>
             )
@@ -179,15 +213,23 @@ export default function MonitorList({
   } else {
     // Ungrouped monitors
     const filteredMonitors = monitors.filter(passesFilter)
+    const favoriteMonitors = filteredMonitors.filter((monitor) => favorites.has(monitor.id))
+    const normalMonitors = filteredMonitors.filter((monitor) => !favorites.has(monitor.id))
+    const orderedMonitors = [...favoriteMonitors, ...normalMonitors]
     content =
       filteredMonitors.length === 0 ? (
         <div className={styles.empty}>{t('No matching components')}</div>
       ) : (
         <motion.div variants={listVariants} initial="hidden" animate="show">
-          {filteredMonitors.map((monitor) => (
+          {orderedMonitors.map((monitor) => (
             <motion.div key={monitor.id} variants={itemVariants} layout className={styles.item}>
               <Card.Section ml="xs" mr="xs">
-                <MonitorDetail monitor={monitor} state={state} />
+                <MonitorDetail
+                  monitor={monitor}
+                  state={state}
+                  isFavorite={favorites.has(monitor.id)}
+                  onToggleFavorite={toggleFavorite}
+                />
               </Card.Section>
             </motion.div>
           ))}
