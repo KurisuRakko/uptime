@@ -95,8 +95,8 @@ export default function OverallStatus({
   return (
     <Container size="md" mt="xl">
       <motion.div
-        initial={{ opacity: 0, y: 16, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <Card className="glass status-card" padding="lg" radius="md">
@@ -111,7 +111,7 @@ export default function OverallStatus({
                 {t('Current Status')}: {pageConfig.title}
               </div>
               <div className="status-meta">
-                <span>{t('Uptime over the past 90 days')}.</span>
+                <span>{t('Uptime over the past 30 days')}.</span>
                 <Link className={styles.statusLink} href="/incidents">
                   {t('View historical uptime')}
                 </Link>

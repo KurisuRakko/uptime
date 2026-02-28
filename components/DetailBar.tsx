@@ -32,7 +32,8 @@ export default function DetailBar({
   const todayStart = new Date()
   todayStart.setHours(0, 0, 0, 0)
 
-  for (let i = 89; i >= 0; i--) {
+  const days = 30
+  for (let i = days - 1; i >= 0; i--) {
     const dayStart = Math.round(todayStart.getTime() / 1000) - i * 86400
     const dayEnd = dayStart + 86400
 
@@ -160,7 +161,10 @@ export default function DetailBar({
         visibleFrom="540"
         ref={barRef}
       >
-        {uptimePercentBars.slice(Math.floor(Math.max(9 * 90 - barRect.width, 0) / 9), 90)}
+        {uptimePercentBars.slice(
+          Math.floor(Math.max(9 * days - barRect.width, 0) / 9),
+          days
+        )}
       </Box>
     </>
   )

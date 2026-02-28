@@ -49,8 +49,8 @@ export default function MonitorList({
     },
   }
   const itemVariants = {
-    hidden: { opacity: 0, y: 14 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.35 } },
   }
   const group = pageConfig.group
   const groupedMonitor = group && Object.keys(group).length > 0

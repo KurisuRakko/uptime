@@ -69,7 +69,7 @@ const workerConfig: WorkerConfig = {
     /* ---------- kurisu.rakko.cn (Server) ---------- */
     {
       id: 'rakko-kurisu-server',
-      name: 'Kurisu Server',
+      name: 'About KurisuRakko',
       method: 'GET',
       target: 'https://kurisu.rakko.cn',
       tooltip: 'Kurisu server status',

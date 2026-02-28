@@ -31,8 +31,8 @@ export default function Header({ style }: { style?: React.CSSProperties }) {
           <Link href="/">
             <Image
               src={pageConfig.logo ?? '/logo.png'}
-              h={32}
-              w={{ base: 120, sm: 160 }}
+              h={36}
+              w={{ base: 140, sm: 180 }}
               fit="contain"
               alt="logo"
             />
