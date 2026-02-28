@@ -109,8 +109,8 @@ const maintenances: MaintenanceConfig[] = [
     title: 'RSSS · Scheduled Maintenance',
     body: 'Rakko System infrastructure maintenance in progress',
     // 你可以把 start/end 换成你真实维护窗口
-    // start: '2026-01-01T00:00:00+08:00',
-    // end: '2026-06-31T23:59:59+08:00',
+    start: '2026-01-01T00:00:00+08:00',
+    end: '2026-06-31T23:59:59+08:00',
     color: 'blue',
   },
 ]
