@@ -104,19 +104,20 @@ export default function DetailBar({
       >
         <div
           style={{
-            height: '14px',
-            width: '5px',
+            height: '16px',
+            width: '6px',
             background: getColor(dayPercent, false),
-            borderRadius: '2px',
-            marginLeft: '1px',
-            marginRight: '1px',
-            transition: 'transform 150ms ease',
+            borderRadius: '1px',
+            marginLeft: '2px',
+            marginRight: '2px',
+            transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: dayDownTime > 0 ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
           }}
           onMouseEnter={(event) => {
-            event.currentTarget.style.transform = 'translateY(-2px)'
+            event.currentTarget.style.transform = 'scaleY(1.3)'
           }}
           onMouseLeave={(event) => {
-            event.currentTarget.style.transform = 'translateY(0)'
+            event.currentTarget.style.transform = 'scaleY(1)'
           }}
           onClick={() => {
             if (dayDownTime > 0) {

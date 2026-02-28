@@ -39,10 +39,10 @@ export default function IncidentTimeline({
   }
 
   return (
-    <Card className="glass" padding="md" radius="md" mt="md">
-      <Group justify="space-between" mb="xs">
-        <Text fw={600}>{t('Incident timeline')}</Text>
-        <Badge variant="light">{t('Last')} {days}d</Badge>
+    <Card className="glass" padding="xl" radius="md" mt="md" style={{ boxShadow: '0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20)' }}>
+      <Group justify="space-between" mb="lg">
+        <Text fw={600} size="lg">{t('Incident timeline')}</Text>
+        <Badge variant="light" size="lg">{t('Last')} {days}d</Badge>
       </Group>
       <Stack gap="sm">
         {incidents.map((incident, idx) => (

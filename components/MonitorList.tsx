@@ -46,12 +46,12 @@ export default function MonitorList({
   const listVariants = {
     hidden: {},
     show: {
-      transition: { staggerChildren: 0.06, delayChildren: 0.05 },
+      transition: { staggerChildren: 0.08, delayChildren: 0.05 },
     },
   }
   const itemVariants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 0.35 } },
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { type: 'spring' as const, bounce: 0, duration: 0.4 } },
   }
   const group = pageConfig.group
   const groupedMonitor = group && Object.keys(group).length > 0
@@ -191,19 +191,19 @@ export default function MonitorList({
                 </Accordion.Control>
                 <Accordion.Panel>
                   <motion.div variants={listVariants} initial="hidden" animate="show">
-                  {orderedGroup.map((monitor) => (
-                    <motion.div key={monitor.id} variants={itemVariants} layout className={styles.item}>
-                      <Card.Section ml="xs" mr="xs">
-                        <MonitorDetail
-                          monitor={monitor}
-                          state={state}
-                          isFavorite={favorites.has(monitor.id)}
-                          onToggleFavorite={toggleFavorite}
-                        />
-                      </Card.Section>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                    {orderedGroup.map((monitor) => (
+                      <motion.div key={monitor.id} variants={itemVariants} layout className={styles.item}>
+                        <Card.Section ml="xs" mr="xs">
+                          <MonitorDetail
+                            monitor={monitor}
+                            state={state}
+                            isFavorite={favorites.has(monitor.id)}
+                            onToggleFavorite={toggleFavorite}
+                          />
+                        </Card.Section>
+                      </motion.div>
+                    ))}
+                  </motion.div>
                 </Accordion.Panel>
               </Accordion.Item>
             )

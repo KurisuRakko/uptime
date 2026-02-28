@@ -1,4 +1,4 @@
-import { MaintenanceConfig, MonitorTarget } from '@/types/config'
+import { MaintenanceConfig, MonitorTarget, MonitorState } from '@/types/config'
 import { Container, Collapse, Card, Text } from '@mantine/core'
 import { IconCircleCheck, IconAlertCircle } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
@@ -117,14 +117,14 @@ export default function OverallStatus({
   return (
     <Container size="md" mt="xl">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: 'spring' as const, stiffness: 300, damping: 24, duration: 0.5 }}
       >
-        <Card className="glass status-card" padding="lg" radius="md">
+        <Card className="glass status-card" padding="xl" radius="md">
           <div className={styles.wrapper}>
-            <div className={`status-banner is-${statusVariant}`}>
-              <span className={pulseClass}>{icon}</span>
+            <div className={`status-banner is-${statusVariant}`} style={{ padding: '16px', borderRadius: '4px', fontSize: '16px', fontWeight: 500, boxShadow: '0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20)' }}>
+              <span className={pulseClass} style={{ marginRight: '8px' }}>{icon}</span>
               {statusString}
             </div>
 

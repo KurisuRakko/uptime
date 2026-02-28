@@ -44,9 +44,11 @@ export default function DetailChart({
     datasets: [
       {
         data: latencyData,
-        borderColor: '#57606a',
+        borderColor: 'rgba(0, 150, 136, 0.8)', /* Material Teal */
+        backgroundColor: 'rgba(0, 150, 136, 0.1)',
         borderWidth: 2,
         radius: 0,
+        fill: true,
         cubicInterpolationMode: 'monotone' as const,
         tension: 0.4,
       },
