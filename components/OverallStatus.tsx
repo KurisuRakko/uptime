@@ -24,7 +24,7 @@ export default function OverallStatus({
   maintenances,
   monitors,
 }: {
-  state: { overallUp: number; overallDown: number; lastUpdate: number }
+  state: MonitorState
   maintenances: MaintenanceConfig[]
   monitors: MonitorTarget[]
 }) {
