@@ -124,7 +124,6 @@ export default function MonitorList({
           value={expandedGroups}
           onChange={(values) => setExpandedGroups(values)}
           transitionDuration={240}
-          transitionTimingFunction="ease"
         >
           {Object.keys(group).map((groupName) => {
             const groupMonitors = monitors
