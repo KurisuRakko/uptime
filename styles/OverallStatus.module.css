@@ -54,8 +54,14 @@
   border: 1px solid var(--panel-border);
   border-radius: 8px;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.05);
+  /* Very subtle overlay for depth */
 }
+
+[data-mantine-color-scheme="dark"] .slaCard {
+  background: rgba(255, 255, 255, 0.03);
+}
+
 
 .slaLabel {
   font-size: 12px;
@@ -65,6 +71,7 @@
 .slaValue {
   font-size: 18px;
   font-weight: 700;
+  color: var(--text-0);
 }
 
 @media (max-width: 48rem) {
