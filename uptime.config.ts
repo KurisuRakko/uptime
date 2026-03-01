@@ -36,6 +36,21 @@ const workerConfig: WorkerConfig = {
       },
     },
 
+    /* ---------- scratchpad.rakko.cn (Scratchpad) ---------- */
+    {
+      id: 'rakko-scratchpad',
+      name: 'Rakko Scratchpad',
+      method: 'GET',
+      target: 'https://scratchpad.rakko.cn/',
+      tooltip: 'Rakko Scratchpad web application',
+      statusPageLink: 'https://scratchpad.rakko.cn/',
+      expectedCodes: [200, 301, 302],
+      timeout: 5000,
+      headers: {
+        'User-Agent': 'RSSS/1.0 (Rakko System Service Status)',
+      },
+    },
+
     /* ---------- music.rakko.cn (App) ---------- */
     {
       id: 'rakko-music-player',
